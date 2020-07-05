@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.spring.mvc.model.BoardVO;
 
-public interface IBoardRepository {
+public interface IBoardMapper {
 	void insert(BoardVO board);
 	
 	List<BoardVO> getBoardList();

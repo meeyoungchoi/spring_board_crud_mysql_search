@@ -6,43 +6,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mvc.model.BoardVO;
-import com.spring.mvc.repository.IBoardRepository;
+import com.spring.mvc.repository.IBoardMapper;
 
 @Service
 public class BoardService implements IBoardService {
 	
 	@Autowired
-	private IBoardRepository repository;
+	private IBoardMapper mapper;
 	
 
 	@Override
 	public void insert(BoardVO board) {
-		repository.insert(board);
+		mapper.insert(board);
 	}
 
 
 	@Override
 	public List<BoardVO> getBoardList() {
-		return repository.getBoardList();
+		return mapper.getBoardList();
 	}
 
 
 	@Override
 	public BoardVO detail(int boardNo) {
-		return repository.detail(boardNo);
+		return mapper.detail(boardNo);
 	}
 
 
 	@Override
 	public void update(BoardVO board) {
-		repository.update(board);
+		mapper.update(board);
 		
 	}
 
 
 	@Override
 	public void delete(int boardNo) {
-		repository.delete(boardNo);
+		mapper.delete(boardNo);
 		
 	}
 
@@ -50,7 +50,7 @@ public class BoardService implements IBoardService {
 	@Override
 	public List<BoardVO> search(String keyword) {
 		keyword = "%" + keyword + "%";
-		return repository.search(keyword);
+		return mapper.search(keyword);
 	}
 
 }
