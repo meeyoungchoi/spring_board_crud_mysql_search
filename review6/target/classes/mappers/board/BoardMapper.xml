@@ -9,7 +9,7 @@
 		<id property="boardNo" column="board_no" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
-		<result property="userId" column="writer" />
+		<result property="writer" column="writer" />
 		<result property="regDate" column="reg_date" />
 		<result property="viewCnt" column="view_cnt" />
 		
@@ -19,13 +19,12 @@
 	<insert id="insert">
 		INSERT INTO mvc_board
 		(title, content, writer)
-		VALUES (#{title}, #{content}, #{userId})
+		VALUES (#{title}, #{content}, #{writer})
 	</insert>
 	
 	<select id="getBoardList" resultMap="BoardMap">
 		SELECT * 
 		FROM mvc_board 
-		ORDER BY board_no DESC
 	</select>
 
 

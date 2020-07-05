@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.spring.mvc.model.BoardVO;
@@ -27,7 +28,7 @@ public class BoardController {
 	
 	@GetMapping("/board/write")
 	public String write() {
-		return "board/write-form";
+		return "board/write";
 	}
 	
 	
@@ -39,36 +40,36 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	@GetMapping("/board/show")
-	public String show(int boardNo, Model model) {
-		System.out.println("/board/show: GET");
+	@GetMapping("/board/content/{boardNo}")
+	public String content(@PathVariable int boardNo, Model model) {
+		System.out.println("/board/content: GET");
 		System.out.println("parameter: " + boardNo);
 		System.out.println(service.detail(boardNo));
 		model.addAttribute("board", service.detail(boardNo));
-		return "board/show";
+		return "board/content";
 	}
 	
-	@GetMapping("/board/edit")
-	public String edit(int boardNo, Model model) {
-		System.out.println("/board/edit: GET");
+	@GetMapping("/board/modify/{boardNo}")
+	public String edit(@PathVariable int boardNo, Model model) {
+		System.out.println("/board/modify: GET");
 		System.out.println("parameter: " + boardNo);
 		System.out.println(service.detail(boardNo));
 		model.addAttribute("board", service.detail(boardNo));
-		return "board/edit";
+		return "board/modify";
 	}
 	
-	@PostMapping("/board/update")
-	public String update(BoardVO board, Model model) {
-		System.out.println("/board/update: POST");
+	@PostMapping("/board/modify")
+	public String update(BoardVO board) {
+		System.out.println("/board/modify: POST");
 		System.out.println(board.toString());
 		service.update(board);
-		model.addAttribute("boardNo", board.getBoardNo());
-	    return "redirect:/board/show";
+		return "redirect:/board/content/" + board.getBoardNo();
+	  //return "redirect:/board/content?boardNo=${board.boardNo}";//안되는이유?
 	}
 	
 	
-	@GetMapping("/board/delete")
-	public String delete(int boardNo) {
+	@GetMapping("/board/delete/{boardNo}")
+	public String delete(@PathVariable int boardNo) {
 		System.out.println("/board/delete: GET");
 		System.out.println("parameter: " + boardNo);
 		service.delete(boardNo);
